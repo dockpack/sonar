@@ -11,7 +11,7 @@ before_install:
 install:
   # Install Ansible.
   - pip install ansible==$ANSIBLE_VERSION
-
+  - git clone https://github.com/PCextreme/ansible-role-mariadb.git testst/roles/pcextreme.mariadb
   # Add ansible.cfg to pick up roles path.
   - "{ echo '[defaults]'; echo 'roles_path = ../'; } >> ansible.cfg"
 
