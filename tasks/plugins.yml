@@ -4,6 +4,7 @@
             owner=sonar group=sonar mode=0644
             dest=/opt/sonar/extensions/plugins
             timeout=30
+  retries: 3
   with_items: sonar_plugins
   notify:
   - 'restart sonar'
