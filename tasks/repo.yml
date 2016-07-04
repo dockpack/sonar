@@ -5,3 +5,5 @@
              dest=/etc/yum.repos.d/sonar.repo
   when: ansible_os_family == "RedHat"
   retries: 300
+  tags:
+    - sonar

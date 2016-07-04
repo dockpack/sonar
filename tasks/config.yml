@@ -5,6 +5,7 @@
 #            login_user=root login_password={{mysql_root_password}}
   when: features.mysql
   tags:
+    - sonar
     - database
     - mysql
 
@@ -14,6 +15,7 @@
 #    login_user=root login_password={{mysql_root_password}}
   when: features.mysql
   tags:
+    - sonar
     - database
     - mysql
 
@@ -23,6 +25,7 @@
                  #lc_collate='en_EN.UTF-8' lc_ctype='en_EN.UTF-8'
   when: features.postgresql
   tags:
+    - sonar
     - database
     - postgresql
 
@@ -30,6 +33,7 @@
   postgresql_user: db=sonar name='{{sonar_username}}' password='{{sonar_password}}'
   when: features.postgresql
   tags:
+    - sonar
     - database
     - postgresql
 
@@ -37,3 +41,6 @@
   template: src=sonar.properties dest=/opt/sonar/conf/sonar.properties mode=644 backup=off
   when: ansible_os_family == "RedHat"
   notify: restart sonar
+  tags:
+    - sonar
+

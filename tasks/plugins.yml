@@ -8,3 +8,6 @@
   with_items: sonar_plugins
   notify:
   - 'restart sonar'
+  tags:
+    - sonar
+

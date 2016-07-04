@@ -7,6 +7,7 @@
   - 'python-psycopg2-doc'
   when: features.postgresql and ansible_os_family == "RedHat"
   tags:
+    - sonar
     - database
     - postgresql
 
@@ -14,6 +15,7 @@
   service: name=postgresql-9.3 state=started
   when: features.postgresql
   tags:
+    - sonar
     - database
     - postgresql
 
@@ -21,6 +23,7 @@
   yum: name=MySQL-python state=installed
   when: features.mysql
   tags:
+    - sonar
     - database
     - mysql
 
@@ -28,6 +31,7 @@
   service: name=mysql state=started
   when: features.mysql
   tags:
+    - sonar
     - database
     - mysql
 
@@ -36,3 +40,6 @@
   when: ansible_os_family == "RedHat"
   with_items: sonar_dependencies
   notify: restart sonar
+  tags:
+    - sonar
+
