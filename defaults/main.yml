@@ -17,14 +17,26 @@ sonar_plugins:
 #  - 'http://dist.sonarsource.com/oss/org/codehaus/sonar-plugins/sonar-ldap-plugin/1.4/sonar-ldap-plugin-1.4.jar'
 #  - 'http://dist.sonarsource.com/oss/org/codehaus/sonar-plugins/sonar-jira-plugin/1.2/sonar-jira-plugin-1.2.jar'  
 # Platforms
-  - 'http://dist.sonarsource.com/oss/org/codehaus/sonar-plugins/java/sonar-java-plugin/2.9.1/sonar-java-plugin-2.9.1.jar'
-  - 'http://dist.sonarsource.com/oss/org/codehaus/sonar-plugins/javascript/sonar-javascript-plugin/2.6/sonar-javascript-plugin-2.6.jar'
+
+# Java
+  - 'http://dist.sonarsource.com/oss/org/codehaus/sonar-plugins/java/sonar-java-plugin/3.1/sonar-java-plugin-3.1.jar'
+# Javascript
+  - 'http://sonarsource.bintray.com/Distribution/sonar-javascript-plugin/sonar-javascript-plugin-2.12.jar'
+# Python
   - 'http://dist.sonarsource.com/oss/org/codehaus/sonar-plugins/python/sonar-python-plugin/1.5/sonar-python-plugin-1.5.jar'
+# XML
   - 'http://dist.sonarsource.com/oss/org/codehaus/sonar-plugins/xml/sonar-xml-plugin/1.2/sonar-xml-plugin-1.2.jar'
+# WEB
+  - 'http://dist.sonarsource.com/oss/org/codehaus/sonar-plugins/sonar-web-plugin/2.3/sonar-web-plugin-2.3.jar'
+# PHP
+  - 'http://downloads.sonarsource.com/plugins/org/codehaus/sonar-plugins/php/sonar-php-plugin/2.6/sonar-php-plugin-2.6.jar'
+# CSS
+  - 'http://downloads.sonarsource.com/plugins/org/codehaus/sonar-plugins/css/sonar-css-plugin/1.2/sonar-css-plugin-1.2.jar'
+  
 #  - 'http://dist.sonarsource.com/oss/org/codehaus/sonar-plugins/android/sonar-android-plugin/1.0/sonar-android-plugin-1.0.jar'
 # Analysis
   # picky on versions
-  - 'http://dist.sonarsource.com/oss/org/codehaus/sonar-plugins/java/sonar-checkstyle-plugin/2.1.1/sonar-checkstyle-plugin-2.1.1.jar'
+  - 'http://dist.sonarsource.com/oss/org/codehaus/sonar-plugins/java/sonar-checkstyle-plugin/2.3/sonar-checkstyle-plugin-2.3.jar'
   - 'http://dist.sonarsource.com/oss/org/codehaus/sonar-plugins/sonar-cobertura-plugin/1.6.3/sonar-cobertura-plugin-1.6.3.jar'
   - 'http://dist.sonarsource.com/oss/org/codehaus/sonar-plugins/java/sonar-findbugs-plugin/3.1/sonar-findbugs-plugin-3.1.jar'
 
