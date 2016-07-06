@@ -1,15 +1,15 @@
 ---
 # defaults file for bbaassssiiee.sonar
 features:
-  mysql: True
-  postgresql: False
+  mysql: False
+  postgresql: True
   
 sonar_username: 'sonar'
 sonar_password: 'PGKaeE3Xhp2B1'
 
 sonar_dependencies:
-  - 'java-1.7.0-openjdk'
-  - 'sonar-4.5'
+  - 'java-1.8.0-openjdk'
+  - 'sonar-4.5.2'
 sonar_repo: 'http://downloads.sourceforge.net/project/sonar-pkg/rpm/sonar.repo'
 
 sonar_plugins:

@@ -11,14 +11,6 @@
     - database
     - postgresql
 
-- name: 'sonar could use either postgresql or mysql'
-  service: name=postgresql-9.3 state=started
-  when: features.postgresql
-  tags:
-    - sonar
-    - database
-    - postgresql
-
 - name: 'Install MySQL-python when sonar needs it'
   yum: name=MySQL-python state=installed
   when: features.mysql
@@ -30,15 +22,25 @@
 - name: 'sonar could use either postgresql or mysql'
   service: name=mysql state=started
   when: features.mysql
+  ignore_errors: yes
   tags:
     - sonar
     - database
     - mysql
 
+- name: 'sonar could use either postgresql or mysql'
+  service: name=postgresql-9.4 state=started
+  when: features.postgresql
+  ignore_errors: yes
+  tags:
+    - sonar
+    - database
+    - postgresql
+    
 - name: 'make sure sonar packages are installed'
   yum: name={{item}} state=installed
   when: ansible_os_family == "RedHat"
-  with_items: sonar_dependencies
+  with_items: "{{ sonar_dependencies }}"
   notify: restart sonar
   tags:
     - sonar
