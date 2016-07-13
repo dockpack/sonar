@@ -1,6 +1,7 @@
 ---
 
 - name: 'make sure postgresql packages are installed'
+  become: yes
   yum: name={{item}} state=installed
   with_items:
   - 'python-psycopg2'
@@ -36,12 +37,49 @@
     - sonar
     - database
     - postgresql
-    
-- name: 'make sure sonar packages are installed'
-  yum: name={{item}} state=installed
-  when: ansible_os_family == "RedHat"
-  with_items: "{{ sonar_dependencies }}"
-  notify: restart sonar
+
+- name: 'verify presence of Sonar'
+  stat: path={{sonar_home}}/bin/sonar
+  register: sonar_installed
   tags:
     - sonar
 
+- name: 'create sonar group'
+  group: name=sonar
+  tags:
+    - sonar
+    
+- name: 'create sonar user'
+  user: name=sonar group=sonar home={{ sonar_home }}
+  tags:
+    - sonar
+    
+- name: 'download Sonar'
+  get_url: url={{ sonar_url }} dest=~ validate_certs=no
+  retries: 3
+  when: not sonar_installed.stat.exists
+  tags:
+    - sonar
+
+- name: 'create directory for Sonar installations'
+  file: dest={{ sonar_home }}
+        state=directory owner=sonar group=sonar mode=0755
+  tags:
+    - sonar
+
+- name: 'unzip Sonar'
+  command: unzip -q -o  ~/{{ sonar_file }} -d {{ sonar_home }}
+  tags:
+    - sonar
+
+- name: 'fix directory for Sonar'
+  file: dest={{ sonar_home }} recurse=yes
+        owner=sonar group=sonar
+  tags:
+    - sonar
+    
+- name: 'install Sonar as a service'
+  template: src=sonar.service dest=/etc/systemd/system
+  tags:
+    - sonar
+    - sonarservice

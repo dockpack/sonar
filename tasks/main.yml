@@ -1,6 +1,4 @@
 ---
-# Add sonar repository
-- include: repo.yml
 
 # Install dependencies
 - include: dependencies.yml

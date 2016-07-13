@@ -9,8 +9,12 @@ sonar_password: 'PGKaeE3Xhp2B1'
 
 sonar_dependencies:
   - 'java-1.8.0-openjdk'
-  - 'sonar-4.5.2'
-sonar_repo: 'http://downloads.sourceforge.net/project/sonar-pkg/rpm/sonar.repo'
+
+sonar_version: 4.5.7
+sonar_name: "sonarqube-{{ sonar_version }}"
+sonar_file: "{{ sonar_name }}.zip"
+sonar_url: 'https://sonarsource.bintray.com/Distribution/sonarqube/{{ sonar_file }}'
+sonar_home: /opt/sonar
 
 sonar_plugins:
 # Integration

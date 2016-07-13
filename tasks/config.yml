@@ -6,6 +6,7 @@
   when: features.mysql
   tags:
     - sonar
+    - sonarconfig
     - database
     - mysql
 
@@ -16,6 +17,7 @@
   when: features.mysql
   tags:
     - sonar
+    - sonarconfig
     - database
     - mysql
 
@@ -26,6 +28,7 @@
   when: features.postgresql
   tags:
     - sonar
+    - sonarconfig
     - database
     - postgresql
 
@@ -34,13 +37,14 @@
   when: features.postgresql
   tags:
     - sonar
+    - sonarconfig
     - database
     - postgresql
 
 - name: 'configure sonar.properties'
-  template: src=sonar.properties dest=/opt/sonar/conf/sonar.properties mode=644 backup=off
-  when: ansible_os_family == "RedHat"
+  template: src=sonar.properties dest={{ sonar_home }}/{{ sonar_name }}/conf/sonar.properties mode=644 backup=off
   notify: restart sonar
   tags:
     - sonar
+    - sonarconfig
 
