@@ -42,7 +42,12 @@
     - postgresql
 
 - name: 'configure sonar.properties'
-  template: src=sonar.properties dest={{ sonar_home }}/{{ sonar_name }}/conf/sonar.properties mode=644 backup=off
+  template:
+    src: ../templates/sonar.properties
+    dest: "{{ sonar_home }}/{{ sonar_name }}/conf/sonar.properties"
+    mode: 0644
+    backup: off
+    force: True
   notify: restart sonar
   tags:
     - sonar

@@ -5,7 +5,7 @@
            dest={{ sonar_home }}/{{ sonar_name }}/extensions/plugins
            timeout=30
   retries: 3
-  with_items: "{{ sonar_plugins }}"
+  with_items: "{{ sonar_plugins|default([]) }}"
   notify:
   - 'restart sonar'
   tags:

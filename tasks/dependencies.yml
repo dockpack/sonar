@@ -4,6 +4,7 @@
   become: yes
   yum: name={{item}} state=installed
   with_items:
+  - 'unzip'
   - 'python-psycopg2'
   - 'python-psycopg2-doc'
   when: features.postgresql and ansible_os_family == "RedHat"
@@ -11,6 +12,25 @@
     - sonar
     - database
     - postgresql
+    - redhat
+
+- name: 'make sure postgresql packages, unzip & JRE are installed'
+  become: yes
+  apt: name={{item}} state=installed
+  with_items:
+  - 'default-jre'
+  - 'python'
+  - 'postgresql'
+  - 'postgresql-contrib'
+  - 'python-psycopg2'
+  - 'python-psycopg2-doc'
+  - 'unzip'
+  when: features.custom_postgres
+  tags:
+    - sonar
+    - database
+    - postgresql
+    - ubuntu
 
 - name: 'Install MySQL-python when sonar needs it'
   yum: name=MySQL-python state=installed
@@ -30,7 +50,7 @@
     - mysql
 
 - name: 'sonar could use either postgresql or mysql'
-  service: name=postgresql-9.4 state=started
+  service: name=postgresql-9.5 state=started
   when: features.postgresql
   ignore_errors: yes
   tags:
@@ -67,10 +87,16 @@
   tags:
     - sonar
 
+# - name: 'unzip Sonar'
+#   command: unzip -q -o  ~/{{ sonar_file }} -d {{ sonar_home }}
+#   tags:
+#     - sonar
+
 - name: 'unzip Sonar'
-  command: unzip -q -o  ~/{{ sonar_file }} -d {{ sonar_home }}
-  tags:
-    - sonar
+  unarchive:
+    src: /root/{{sonar_file}}
+    dest: "{{sonar_home}}"
+    remote_src: True
 
 - name: 'fix directory for Sonar'
   file: dest={{ sonar_home }} recurse=yes
@@ -79,7 +105,9 @@
     - sonar
     
 - name: 'install Sonar as a service'
-  template: src=sonar.service dest=/etc/systemd/system
+  template:
+    src: ../templates/sonar.service
+    dest: /etc/systemd/system
   tags:
     - sonar
     - sonarservice
