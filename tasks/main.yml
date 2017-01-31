@@ -1,13 +1,24 @@
 ---
 
-# Install dependencies
-- include: dependencies.yml
+# tasks file for sonar-app
+- hosts: [sonar-app]
+  become: yes
+  become_method: sudo
+  handlers:
+    - include: ../handlers/main.yml
+  tasks:
+    # get vars
+    - include_vars: ../defaults/main.yml
+    - include_vars: ../vars/main.yml
 
-# Install sonar runner
-- include: runner.yml
+    # Install dependencies
+    - include: dependencies.yml
 
-# Install sonar plugins
-- include: plugins.yml
+    # Install sonar runner
+    - include: runner.yml
 
-# Run configuration
-- include: config.yml
+    # Install sonar plugins
+    - include: plugins.yml
+
+    # Run configuration
+    - include: config.yml
