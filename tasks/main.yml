@@ -1,24 +1,5 @@
 ---
-
-# tasks file for sonar-app
-- hosts: [sonar-app]
-  become: yes
-  become_method: sudo
-  handlers:
-    - include: ../handlers/main.yml
-  tasks:
-    # get vars
-    - include_vars: ../defaults/main.yml
-    - include_vars: ../vars/main.yml
-
-    # Install dependencies
-    - include: dependencies.yml
-
-    # Install sonar runner
-    - include: runner.yml
-
-    # Install sonar plugins
-    - include: plugins.yml
-
-    # Run configuration
-    - include: config.yml
+- include: dependencies.yml
+- include: runner.yml
+- include: plugins.yml
+- include: config.yml
