@@ -1,17 +1,16 @@
 ---
 # defaults file for bbaassssiiee.sonar
-features:
-  mysql: False
-  postgresql: True
-  custom_postgres: False
 
-custom_postgres_jdbc: 'jdbc:postgresql://10.0.0.1/sonar'
+sonar_db_host: localhost
+
+sonar_postgres_jdbc: "jdbc:postgresql://{{ sonar_db_host }}/sonar"
 
 sonar_username: 'sonaruser'
 sonar_password: 'Terrible_Password_1234'
 
-sonar_dependencies:
-  - 'java-1.8.0-openjdk'
+sonarrunner_zipfile: 'sonar-runner-dist-2.4.zip'
+sonarrunner_url: 'http://repo1.maven.org/maven2/org/codehaus/sonar/runner/sonar-runner-dist/2.4/sonar-runner-dist-2.4.zip'
+
 
 sonar_version: 6.2
 sonar_name: "sonarqube-{{ sonar_version }}"
@@ -22,7 +21,7 @@ sonar_home: /opt/sonar
 sonar_plugins:
 # Integration
 #  - 'http://dist.sonarsource.com/oss/org/codehaus/sonar-plugins/sonar-ldap-plugin/1.4/sonar-ldap-plugin-1.4.jar'
-#  - 'http://dist.sonarsource.com/oss/org/codehaus/sonar-plugins/sonar-jira-plugin/1.2/sonar-jira-plugin-1.2.jar'  
+#  - 'http://dist.sonarsource.com/oss/org/codehaus/sonar-plugins/sonar-jira-plugin/1.2/sonar-jira-plugin-1.2.jar'
 # Platforms
 
 # Java
@@ -30,15 +29,15 @@ sonar_plugins:
 # Javascript
   - 'http://sonarsource.bintray.com/Distribution/sonar-javascript-plugin/sonar-javascript-plugin-2.18.0.3454.jar'
 # Python
-#  - 'http://dist.sonarsource.com/oss/org/codehaus/sonar-plugins/python/sonar-python-plugin/1.5/sonar-python-plugin-1.5.jar'
+  - 'http://dist.sonarsource.com/oss/org/codehaus/sonar-plugins/python/sonar-python-plugin/1.5/sonar-python-plugin-1.5.jar'
 # XML
-#  - 'http://dist.sonarsource.com/oss/org/codehaus/sonar-plugins/xml/sonar-xml-plugin/1.2/sonar-xml-plugin-1.2.jar'
+  - 'http://dist.sonarsource.com/oss/org/codehaus/sonar-plugins/xml/sonar-xml-plugin/1.2/sonar-xml-plugin-1.2.jar'
 # WEB
-#  - 'http://dist.sonarsource.com/oss/org/codehaus/sonar-plugins/sonar-web-plugin/2.3/sonar-web-plugin-2.3.jar'
+  - 'http://dist.sonarsource.com/oss/org/codehaus/sonar-plugins/sonar-web-plugin/2.3/sonar-web-plugin-2.3.jar'
 # PHP
-#  - 'http://downloads.sonarsource.com/plugins/org/codehaus/sonar-plugins/php/sonar-php-plugin/2.6/sonar-php-plugin-2.6.jar'
+  - 'http://downloads.sonarsource.com/plugins/org/codehaus/sonar-plugins/php/sonar-php-plugin/2.6/sonar-php-plugin-2.6.jar'
 # CSS
-#  - 'http://downloads.sonarsource.com/plugins/org/codehaus/sonar-plugins/css/sonar-css-plugin/1.2/sonar-css-plugin-1.2.jar'
+  - 'http://downloads.sonarsource.com/plugins/org/codehaus/sonar-plugins/css/sonar-css-plugin/1.2/sonar-css-plugin-1.2.jar'
 # C#
   - 'http://sonarsource.bintray.com/Distribution/sonar-csharp-plugin/sonar-csharp-plugin-5.5.1.522.jar'
 
