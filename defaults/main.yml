@@ -32,8 +32,6 @@ sonar_plugins:
   - 'http://dist.sonarsource.com/oss/org/codehaus/sonar-plugins/python/sonar-python-plugin/1.5/sonar-python-plugin-1.5.jar'
 # XML
   - 'http://dist.sonarsource.com/oss/org/codehaus/sonar-plugins/xml/sonar-xml-plugin/1.2/sonar-xml-plugin-1.2.jar'
-# WEB
-  - 'http://dist.sonarsource.com/oss/org/codehaus/sonar-plugins/sonar-web-plugin/2.3/sonar-web-plugin-2.3.jar'
 # PHP
   - 'http://downloads.sonarsource.com/plugins/org/codehaus/sonar-plugins/php/sonar-php-plugin/2.6/sonar-php-plugin-2.6.jar'
 # CSS
