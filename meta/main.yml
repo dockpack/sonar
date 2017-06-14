@@ -11,10 +11,10 @@ galaxy_info:
   min_ansible_version: 1.9.0
 
   platforms:
-  - name: EL
-    versions:
-    - 6
-    - 7
+    - name: EL
+      versions:
+        - 6
+        - 7
  # - name: Ubuntu
  #   versions:
  #   - trusty
@@ -26,4 +26,4 @@ galaxy_info:
     - development
 
 dependencies:
-  - { role: bbaassssiiee.base_java8 }
+  - bbaassssiiee.base_java8

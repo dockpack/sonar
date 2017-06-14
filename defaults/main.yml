@@ -66,4 +66,3 @@ sonar_plugins:
 #  - 'http://dist.sonarsource.com/oss/org/codehaus/sonar-plugins/sonar-technicaldebt-plugin/1.2.1/sonar-technicaldebt-plugin-1.2.1.jar'
 #  - 'http://dist.sonarsource.com/oss/org/codehaus/sonar-plugins/sonar-timeline-plugin/1.4/sonar-timeline-plugin-1.4.jar'
 #  - 'http://dist.sonarsource.com/oss/org/codehaus/sonar-plugins/sonar-useless-code-tracker-plugin/1.0/sonar-useless-code-tracker-plugin-1.0.jar'
-

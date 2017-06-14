@@ -10,12 +10,12 @@
   group: name=sonar
   tags:
     - sonar
-    
+
 - name: 'create sonar user'
   user: name=sonar group=sonar home={{ sonar_home }}
   tags:
     - sonar
-    
+
 - name: 'download Sonar'
   get_url: url={{ sonar_url }} dest=~ validate_certs=no
   retries: 3
@@ -40,7 +40,7 @@
         owner=sonar group=sonar
   tags:
     - sonar
-    
+
 - name: 'install Sonar as a service'
   template:
     src: ../templates/sonar.service
