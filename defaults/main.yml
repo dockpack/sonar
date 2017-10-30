@@ -1,5 +1,10 @@
 ---
 # defaults file for bbaassssiiee.sonar
+features:
+  mysql: False
+  postgresql: True
+  custom_postgres: False
+  custom_mysql: False
 
 sonar_db_host: localhost
 
@@ -17,6 +22,14 @@ sonar_name: "sonarqube-{{ sonar_version }}"
 sonar_file: "{{ sonar_name }}.zip"
 sonar_url: 'https://sonarsource.bintray.com/Distribution/sonarqube/{{ sonar_file }}'
 sonar_home: /opt/sonar
+sonar_web_javaopts: False
+sonar_web_javaadditionalopts: False
+sonar_path_data: data
+sonar_web_host: 0.0.0.0
+sonar_web_context: /sonar
+sonar_web_port: 9000
+sonar_search_port: 9001
+
 
 sonar_plugins:
 # Integration

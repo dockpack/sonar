@@ -18,9 +18,24 @@
     - database
     - postgresql
 
+# In order to add section to the sonar.properties file (thanks to assemble directive)
+- name:
+  file:
+    dest: "{{ sonar_home }}/{{ sonar_name }}/conf/properties"
+    state: directory
+
 - name: 'configure sonar.properties'
   template:
     src: ../templates/sonar.properties
+    dest: "{{ sonar_home }}/{{ sonar_name }}/conf/properties/sonar.properties"
+  notify: restart sonar
+  tags:
+    - sonar
+    - sonarconfig
+
+- name:
+  assemble:
+    src: "{{ sonar_home }}/{{ sonar_name }}/conf/properties"
     dest: "{{ sonar_home }}/{{ sonar_name }}/conf/sonar.properties"
     mode: 0644
     backup: off
