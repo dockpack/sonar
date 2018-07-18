@@ -29,6 +29,8 @@ sonar_web_host: 0.0.0.0
 sonar_web_context: /sonar
 sonar_web_port: 9000
 sonar_search_port: 9001
+sonar_ce_javaopts: False
+sonar_ce_javaadditionalopts: False
 
 
 sonar_plugins:
