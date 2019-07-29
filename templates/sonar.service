@@ -4,10 +4,10 @@ After=network.target network-online.target
 Wants=network-online.target
 
 [Service]
-ExecStart={{ sonar_home }}/{{ sonar_name }}/bin/linux-x86-64/sonar.sh start
-ExecStop={{ sonar_home }}/{{ sonar_name }}/bin/linux-x86-64/sonar.sh stop
-ExecReload={{ sonar_home }}/{{ sonar_name }}/bin/linux-x86-64/sonar.sh restart
-PIDFile={{ sonar_home }}/{{ sonar_name }}/bin/linux-x86-64/./SonarQube.pid
+ExecStart={{ sonar_directory }}/bin/linux-x86-64/sonar.sh start
+ExecStop={{ sonar_directory }}/bin/linux-x86-64/sonar.sh stop
+ExecReload={{ sonar_directory }}/bin/linux-x86-64/sonar.sh restart
+PIDFile={{ sonar_directory }}/bin/linux-x86-64/./SonarQube.pid
 Type=forking
 User=sonar
 
