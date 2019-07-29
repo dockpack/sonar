@@ -67,7 +67,7 @@
     - mysql
 
 - name: 'sonar could use either postgresql or mysql'
-  service: name=postgresql-9.5 state=started
+  service: name=postgresql-9.6 state=started
   when: features.postgresql
   ignore_errors: yes
   tags:
@@ -76,7 +76,7 @@
     - postgresql
 
 - name: 'verify presence of Sonar'
-  stat: path={{sonar_home}}/bin/sonar
+  stat: path={{ sonar_home }}/bin/sonar
   register: sonar_installed
   tags:
     - sonar
@@ -106,8 +106,8 @@
 
 - name: 'unzip Sonar'
   unarchive:
-    src: /root/{{sonar_file}}
-    dest: "{{sonar_home}}"
+    src: /root/{{ sonar_file }}
+    dest: "{{ sonar_home }}"
     keep_newer: True
     remote_src: True
 
@@ -117,10 +117,17 @@
   tags:
     - sonar
 
-- name: 'install Sonar as a service'
-  template:
-    src: ../templates/sonar.service
-    dest: /etc/systemd/system
-  tags:
-    - sonar
-    - sonarservice
+- name: Add sonar as init script for service management.
+  file:
+    # Here specifically it doesn't have the -developer part in the name
+    src: "{{ sonar_home }}/sonarqube-{{sonar_version}}/bin/linux-x86-64/sonar.sh"
+    dest: /etc/init.d/sonar
+    state: link
+
+# - name: 'install Sonar as a service'
+#   template:
+#     src: ../templates/sonar.service
+#     dest: /etc/systemd/system
+#   tags:
+#     - sonar
+#     - sonarservice
