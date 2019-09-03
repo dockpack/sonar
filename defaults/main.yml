@@ -26,9 +26,8 @@ sonar_directory: "{{ sonar_home }}/sonarqube-{{ sonar_version }}"
 # sonar_web_javaopts: False
 sonar_web_javaopts: "-Xmx1024m -Xms128m -XX:+HeapDumpOnOutOfMemoryError"
 sonar_web_javaadditionalopts: False
-sonar_path_data: data
 sonar_web_host: 0.0.0.0
-sonar_web_context: /sonar
+sonar_web_context: /sonarqube
 sonar_web_port: 9000
 sonar_search_javaadditionalopts: "-Dbootstrap.system_call_filter=false"
 sonar_search_port: 9001

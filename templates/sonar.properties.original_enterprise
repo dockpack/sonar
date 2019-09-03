@@ -374,12 +374,12 @@ sonar.search.port={{ sonar_search_port }}
 #      or by month ("time:yyyy-MM")
 #    - based on size if value starts with "size:", for example "size:10MB"
 #    - disabled if value is "none".  That needs logs to be managed by an external system like logrotate.
-sonar.log.rollingPolicy=time:yyyy-MM-dd
+#sonar.log.rollingPolicy=time:yyyy-MM-dd
 
 # Maximum number of files to keep if a rolling policy is enabled.
 #    - maximum value is 20 on size rolling policy
 #    - unlimited on time rolling policy. Set to zero to disable old file purging.
-sonar.log.maxFiles=7
+#sonar.log.maxFiles=7
 
 # Access log is the list of all the HTTP requests received by server. If enabled, it is stored
 # in the file {sonar.path.logs}/access.log. This file follows the same rolling policy as other log file
