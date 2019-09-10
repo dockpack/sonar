@@ -1,0 +1,69 @@
+---
+
+- name: 'create sonar database'
+  postgresql_db: name="{{ sonar_postgres_db_name }}" template='template0'
+                 encoding='UTF-8'
+                 #lc_collate='en_EN.UTF-8' lc_ctype='en_EN.UTF-8'
+  tags:
+    - sonar
+    - sonarconfig
+    - database
+    - postgresql
+
+- name: 'create sonar user'
+  postgresql_user: db=sonar name='{{ sonar_username }}' password='{{ sonar_password }}'
+  tags:
+    - sonar
+    - sonarconfig
+    - database
+    - postgresql
+
+# In order to add section to the sonar.properties file (thanks to assemble directive)
+- name: 'create sonar properties directory'
+  file:
+    dest: "{{ sonar_directory }}/conf/properties"
+    state: directory
+
+- name: 'configure sonar.properties'
+  template:
+    src: ../templates/sonar.properties
+    dest: "{{ sonar_directory }}/conf/properties/sonar.properties"
+  notify: restart sonar
+  tags:
+    - sonar
+    - sonarconfig
+
+- name: 'add directory for sonar-secret file'
+  file:
+    dest: "{{ sonar_home }}/.sonar"
+    mode: 0644
+    state: directory
+    owner: "{{ sonar_username }}"
+    group: "{{ sonar_username }}"
+
+- name: 'add sonar-secret file'
+  template:
+    src: ../templates/sonar-secret.txt
+    dest: "{{ sonar_home }}/.sonar"
+    mode: 0644
+    owner: "{{ sonar_username }}"
+    group: "{{ sonar_username }}"
+
+- name:
+  assemble:
+    src: "{{ sonar_directory }}/conf/properties"
+    dest: "{{ sonar_directory }}/conf/sonar.properties"
+    mode: 0644
+    backup: off
+    force: True
+  notify: restart sonar
+  tags:
+    - sonar
+    - sonarconfig
+
+- name: Change RUNUSER.
+  lineinfile:
+    dest: "{{ sonar_directory }}/bin/linux-x86-64/sonar.sh"
+    regexp: "^#RUN_AS_USER=$"
+    line: "RUN_AS_USER={{ sonar_username }}"
+    backrefs: true # so that it doesn't duplicate, i.e. allows task to be idempotent

@@ -7,7 +7,7 @@ features:
   custom_mysql: False
 
 sonar_db_host: localhost
-
+sonar_postgres_db_name: sonar
 sonar_postgres_jdbc: "jdbc:postgresql://{{ sonar_db_host }}/sonar"
 
 sonar_username: 'sonaruser'
@@ -18,20 +18,15 @@ sonarrunner_url: 'http://repo1.maven.org/maven2/org/codehaus/sonar/runner/sonar-
 
 
 sonar_version: 6.2
-sonar_name: "sonarqube-{{ sonar_version }}"
+sonar_name: "sonarqube-enterprise-{{ sonar_version }}"
 sonar_file: "{{ sonar_name }}.zip"
-sonar_url: 'https://sonarsource.bintray.com/Distribution/sonarqube/{{ sonar_file }}'
+sonar_url: 'https://binaries.sonarsource.com/CommercialDistribution/sonarqube-enterprise/{{ sonar_file }}'
 sonar_home: /opt/sonar
-sonar_web_javaopts: False
+sonar_directory: "{{ sonar_home }}/sonarqube-{{ sonar_version }}"
+sonar_web_javaopts: "-Xmx1024m -Xms128m -XX:+HeapDumpOnOutOfMemoryError"
 sonar_web_javaadditionalopts: False
-sonar_path_data: data
-sonar_web_host: 0.0.0.0
-sonar_web_context: /sonar
-sonar_web_port: 9000
-sonar_search_port: 9001
-sonar_ce_javaopts: False
-sonar_ce_javaadditionalopts: False
-
+sonar_search_javaadditionalopts: "-Dbootstrap.system_call_filter=false"
+sonar_secret: ''
 
 sonar_plugins:
 # Integration

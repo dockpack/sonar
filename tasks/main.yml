@@ -1,5 +1,6 @@
 ---
+- include: memory_config.yml
 - include: dependencies.yml
 - include: runner.yml
 - include: plugins.yml
-- include: config.yml
+- include: sonar_config.yml
