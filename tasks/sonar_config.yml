@@ -11,7 +11,7 @@
     - postgresql
 
 - name: 'create sonar user'
-  postgresql_user: db=sonar name='{{ sonar_username }}' password='{{ sonar_password }}'
+  postgresql_user: db="{{ sonar_postgres_db_name }}" name='{{ sonar_username }}' password='{{ sonar_password }}'
   tags:
     - sonar
     - sonarconfig
@@ -26,7 +26,7 @@
 
 - name: 'configure sonar.properties'
   template:
-    src: ../templates/sonar.properties
+    src: sonar.properties
     dest: "{{ sonar_directory }}/conf/properties/sonar.properties"
   notify: restart sonar
   tags:
@@ -49,7 +49,13 @@
     owner: "{{ sonar_username }}"
     group: "{{ sonar_username }}"
 
-- name:
+- name: 'change RUNUSER'
+  lineinfile:
+    dest: "{{ sonar_directory }}/bin/linux-x86-64/sonar.sh"
+    regexp: ^(#?)RUN_AS_USER=(.*)
+    line: "RUN_AS_USER={{ sonar_username }}"
+
+- name: 'assemble sonar.properties file'
   assemble:
     src: "{{ sonar_directory }}/conf/properties"
     dest: "{{ sonar_directory }}/conf/sonar.properties"
@@ -60,10 +66,3 @@
   tags:
     - sonar
     - sonarconfig
-
-- name: Change RUNUSER.
-  lineinfile:
-    dest: "{{ sonar_directory }}/bin/linux-x86-64/sonar.sh"
-    regexp: "^#RUN_AS_USER=$"
-    line: "RUN_AS_USER={{ sonar_username }}"
-    backrefs: true # so that it doesn't duplicate, i.e. allows task to be idempotent
