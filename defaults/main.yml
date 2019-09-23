@@ -27,6 +27,8 @@ sonar_web_javaopts: "-Xmx1024m -Xms128m -XX:+HeapDumpOnOutOfMemoryError"
 sonar_web_javaadditionalopts: False
 sonar_search_javaadditionalopts: "-Dbootstrap.system_call_filter=false"
 sonar_secret: ''
+sonar_log_rolling_policy: "time:yyyy-MM-dd"
+sonar_log_max_files: 7
 
 sonar_plugins:
 # Integration
