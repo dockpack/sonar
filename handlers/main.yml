@@ -9,3 +9,7 @@
 - name: 'restart sonar'
   become: yes
   service: name=sonar state=restarted
+
+- name: 'restart datadog-agent'
+  become: yes
+  service: name=datadog-agent state=restarted

@@ -7,6 +7,7 @@ name: Create Datadog log config files.
   mode: 0400
   owner: dd-agent
   group: dd-agent
+  notify: restart datadog-agent
   tags:
     - sonar
     - sonarconfig
@@ -17,6 +18,7 @@ name: Download Datadog APM agent
     url: https://repo.dfw.rtrdc.net/rtr/global/dd-java-agent-0.33.0.jar
     dest: /opt/datadog-java-agent/dd-java-agent.jar
     validate_certs: no
+  notify: restart sonar
   tags:
     - sonar
     - sonarconfig
