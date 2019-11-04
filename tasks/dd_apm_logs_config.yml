@@ -1,0 +1,24 @@
+---
+name: Create Datadog log config files.
+  template:
+    src: datadog-logs-config.yml
+    dest: "/etc/datadog-agent/conf.d/{{ item }}.d/config.yaml"
+  loop: "{{ sonar_log_names }}"
+  mode: 0400
+  owner: dd-agent
+  group: dd-agent
+  tags:
+    - sonar
+    - sonarconfig
+    - datadog
+
+name: Download Datadog APM agent
+  get_url:
+    url: https://repo.dfw.rtrdc.net/rtr/global/dd-java-agent-0.33.0.jar
+    dest: /opt/datadog-java-agent/dd-java-agent.jar
+    validate_certs: no
+  tags:
+    - sonar
+    - sonarconfig
+    - datadog
+

@@ -1,0 +1,6 @@
+---
+logs:
+  - type: file
+    path: "/opt/sonar/logs/{{ item }}.log"
+    service: "{{ sonar_name }}"
+    source: "{{ sonar_name }}"

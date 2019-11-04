@@ -23,12 +23,31 @@ sonar_file: "{{ sonar_name }}.zip"
 sonar_url: 'https://binaries.sonarsource.com/CommercialDistribution/sonarqube-enterprise/{{ sonar_file }}'
 sonar_home: /opt/sonar
 sonar_directory: "{{ sonar_home }}/sonarqube-{{ sonar_version }}"
-sonar_web_javaopts: "-Xmx1024m -Xms128m -XX:+HeapDumpOnOutOfMemoryError"
-sonar_web_javaadditionalopts: False
-sonar_search_javaadditionalopts: "-Dbootstrap.system_call_filter=false"
+dd_jvm_opts:
+  - "-Ddd.service.name={{ sonar_name }}"
+  - "-Ddd.trace.analytics.enabled=true"
+  - "-Ddd.trace.report-hostname=true"
+  - "-Ddd.jmxfetch.jetty.enabled=true"
+  - "-Ddd.trace.global.tags=env:management,application:{{ sonar_name }},service:{{ sonar_name }}"
+  - "-Ddd.http.client.tag.query-string=true"
+  - "-Ddd.http.server.tag.query-string=true"
+
+sonar_web_javaopts: "-javaagent:/opt/datadog-java-agent/dd-java-agent.jar -Xmx1024m -Xms128m -XX:+HeapDumpOnOutOfMemoryError"
+sonar_web_javaadditionalopts: "{{ dd_jvm_opts }}"
+
+sonar_search_javaopts: "-javaagent:/opt/datadog-java-agent/dd-java-agent.jar"
+sonar_search_javaadditionalopts: "{{ dd_jvm_opts }} -Dbootstrap.system_call_filter=false"
+
+sonar_ce_javaopts: "-javaagent:/opt/datadog-java-agent/dd-java-agent.jar"
+sonar_ce_javaadditionalopts: "{{ dd_jvm_opts }}"
+
 sonar_secret: ''
 sonar_log_rolling_policy: "time:yyyy-MM-dd"
 sonar_log_max_files: 7
+sonar_log_names:
+  - web
+  - sonar
+  - ce
 
 sonar_plugins:
 # Integration
