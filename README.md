@@ -9,8 +9,8 @@ Requirements
 Sonar can use either a MySQL variant, or PostgreSQL, as a database. You should select just one of these using the features.
 
     features:
-      mysql: True
-      postgresql: False
+      mysql: false
+      postgresql: true
 
 
 Role Variables
@@ -21,7 +21,8 @@ defaults/main.yml and vars/main.yml contain variables. Please change the sonar_p
 Dependencies
 ------------
 
-You can run this role combined with the role pcextreme.mariadb. An implementation with Postgres is possible.
+dockpack.base_postgres
+dockpack.base_base_java8
 
 Example Usage
 ----------------
