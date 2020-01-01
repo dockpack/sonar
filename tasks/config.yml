@@ -11,7 +11,7 @@
     - postgresql
 
 - name: 'create sonar user'
-  postgresql_user: db=sonar name='{{sonar_username}}' password='{{sonar_password}}'
+  postgresql_user: db=sonar name='{{ sonar_username }}' password='{{ sonar_password }}'
   tags:
     - sonar
     - sonarconfig
@@ -19,21 +19,21 @@
     - postgresql
 
 # In order to add section to the sonar.properties file (thanks to assemble directive)
-- name:
+- name: 'create directory'
   file:
     dest: "{{ sonar_home }}/{{ sonar_name }}/conf/properties"
     state: directory
 
 - name: 'configure sonar.properties'
   template:
-    src: ../templates/sonar.properties
+    src: sonar.properties
     dest: "{{ sonar_home }}/{{ sonar_name }}/conf/properties/sonar.properties"
   notify: restart sonar
   tags:
     - sonar
     - sonarconfig
 
-- name:
+- name: assemble properties
   assemble:
     src: "{{ sonar_home }}/{{ sonar_name }}/conf/properties"
     dest: "{{ sonar_home }}/{{ sonar_name }}/conf/sonar.properties"
