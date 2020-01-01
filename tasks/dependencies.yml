@@ -2,12 +2,13 @@
 
 - name: 'make sure postgresql packages are installed'
   become: yes
-  yum: name={{item}} state=installed
-  with_items:
-  - 'unzip'
-  - 'python-psycopg2'
-  - 'python-psycopg2-doc'
-  when: features.postgresql and ansible_os_family == "RedHat"
+  yum:
+    state: present
+    name:
+      - 'unzip'
+      - 'python-psycopg2'
+      - 'python-psycopg2-doc'
+  when: features.postgresql|bool and ansible_os_family == "RedHat"
   tags:
     - sonar
     - database
@@ -16,16 +17,17 @@
 
 - name: 'make sure postgresql packages, unzip & JRE are installed'
   become: yes
-  apt: name={{item}} state=installed
-  with_items:
-  - 'default-jre'
-  - 'python'
-  - 'postgresql'
-  - 'postgresql-contrib'
-  - 'python-psycopg2'
-  - 'python-psycopg2-doc'
-  - 'unzip'
-  when: features.custom_postgres and ansible_os_family == "Debian"
+  apt:
+    state: present
+    name:
+      - 'default-jre'
+      - 'python'
+      - 'postgresql'
+      - 'postgresql-contrib'
+      - 'python-psycopg2'
+      - 'python-psycopg2-doc'
+      - 'unzip'
+  when: features.custom_postgres|bool and ansible_os_family == "Debian"
   tags:
     - sonar
     - database
@@ -34,15 +36,16 @@
 
 - name: 'make sure mysql packages, unzip & JRE are installed'
   become: yes
-  apt: name={{item}} state=installed
-  with_items:
-  - 'default-jre'
-  - 'python'
-  - 'python-mysql'
-  - 'mysql-server'
-  - 'mysql-client'
-  - 'unzip'
-  when: features.mysql and ansible_os_family == "Debian"
+  apt:
+    state: present
+    name:
+      - 'default-jre'
+      - 'python'
+      - 'python-mysql'
+      - 'mysql-server'
+      - 'mysql-client'
+      - 'unzip'
+  when: features.mysql|bool and ansible_os_family == "Debian"
   tags:
     - sonar
     - database
@@ -50,7 +53,9 @@
     - ubuntu
 
 - name: 'Install MySQL-python when sonar needs it'
-  yum: name=MySQL-python state=installed
+  yum:
+    name: MySQL-python
+    state: present
   when: features.mysql and ansible_os_family == "RedHat"
   tags:
     - sonar
@@ -58,8 +63,10 @@
     - mysql
 
 - name: 'sonar could use either postgresql or mysql'
-  service: name=mysql state=started
-  when: features.mysql
+  service:
+    name: mysql
+    state: started
+  when: features.mysql|bool
   ignore_errors: yes
   tags:
     - sonar
@@ -67,8 +74,10 @@
     - mysql
 
 - name: 'sonar could use either postgresql or mysql'
-  service: name=postgresql-9.5 state=started
-  when: features.postgresql
+  service:
+    name: postgresql-9.5
+    state: started
+  when: features.postgresql|bool
   ignore_errors: yes
   tags:
     - sonar
@@ -76,50 +85,65 @@
     - postgresql
 
 - name: 'verify presence of Sonar'
-  stat: path={{sonar_home}}/bin/sonar
+  stat:
+    path: "{{ sonar_home }}/bin/sonar"
   register: sonar_installed
   tags:
     - sonar
 
 - name: 'create sonar group'
-  group: name=sonar
+  group:
+    name: sonar
   tags:
     - sonar
 
 - name: 'create sonar user'
-  user: name=sonar group=sonar home={{ sonar_home }}
+  user:
+    name: sonar
+    group: sonar
+    home: "{{ sonar_home }}"
   tags:
     - sonar
 
 - name: 'download Sonar'
-  get_url: url={{ sonar_url }} dest=~ validate_certs=no
+  get_url:
+    url: "{{ sonar_url }}"
+    dest: ~
+    validate_certs: false
   retries: 3
   when: not sonar_installed.stat.exists
   tags:
     - sonar
 
 - name: 'create directory for Sonar installations'
-  file: dest={{ sonar_home }}
-        state=directory owner=sonar group=sonar mode=0755
+  file:
+    dest: "{{ sonar_home }}"
+    state: directory
+    owner: sonar
+    group: sonar
+    mode: 0755
   tags:
     - sonar
 
 - name: 'unzip Sonar'
   unarchive:
-    src: /root/{{sonar_file}}
-    dest: "{{sonar_home}}"
+    src: "/root/{{ sonar_file }}"
+    dest: "{{ sonar_home }}"
     keep_newer: True
     remote_src: True
 
 - name: 'fix directory for Sonar'
-  file: dest={{ sonar_home }} recurse=yes
-        owner=sonar group=sonar
+  file:
+    dest: "{{ sonar_home }}"
+    recurse: true
+    owner: sonar
+    group: sonar
   tags:
     - sonar
 
 - name: 'install Sonar as a service'
   template:
-    src: ../templates/sonar.service
+    src: sonar.service
     dest: /etc/systemd/system
   tags:
     - sonar

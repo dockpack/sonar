@@ -1,13 +1,16 @@
 ---
 - name: 'make sure sonar plugins are installed'
-  get_url: url={{ item }}
-           owner=sonar group=sonar mode=0644
-           dest={{ sonar_home }}/{{ sonar_name }}/extensions/plugins
-           timeout=30
+  get_url:
+    url: "{{ item }}"
+    owner: sonar
+    group: sonar
+    mode: 0644
+    dest: "{{ sonar_home }}/{{ sonar_name }}/extensions/plugins"
+    timeout: 30
   retries: 3
   with_items: "{{ sonar_plugins|default([]) }}"
   notify:
-  - 'restart sonar'
+    - 'restart sonar'
   tags:
     - sonar
     - sonarplugins
