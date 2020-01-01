@@ -1,5 +1,5 @@
 [Unit]
-Description=Sonar 6
+Description=SonarQube
 After=network.target network-online.target
 Wants=network-online.target
 
