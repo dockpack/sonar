@@ -9,7 +9,7 @@
 
 - name: 'verify presence of Sonar'
   stat:
-    path: "{{ sonar_home }}/bin/sonar"
+    path: "{{ sonar_home }}/sonar/bin/sonar"
   register: sonar_installed
   tags:
     - sonar
@@ -52,8 +52,14 @@
   unarchive:
     src: "/tmp/{{ sonar_file }}"
     dest: "{{ sonar_home }}"
-    keep_newer: True
-    remote_src: True
+    keep_newer: true
+    remote_src: true
+
+- name: 'link directory for sonar'
+  file:
+    src: "{{ sonar_home }}/{{ sonar_name }}"
+    dest: "{{ sonar_home }}/sonarqube"
+    state: link
 
 - name: 'fix directory for Sonar'
   file:
@@ -71,3 +77,10 @@
   tags:
     - sonar
     - sonarservice
+
+- name: 'enable service sonar'
+  systemd:
+    name: sonar
+    enabled: true
+    daemon_reload: true
+  notify: 'start sonar'

@@ -1,10 +1,8 @@
 ---
 # defaults file for bbaassssiiee.sonar
 features:
-  mysql: False
-  postgresql: True
-  custom_postgres: False
-  custom_mysql: False
+  mysql: false
+  postgresql: true
 
 sonar_db_host: localhost
 
@@ -17,11 +15,11 @@ sonarrunner_zipfile: 'sonar-runner-dist-2.4.zip'
 sonarrunner_url: 'http://repo1.maven.org/maven2/org/codehaus/sonar/runner/sonar-runner-dist/2.4/sonar-runner-dist-2.4.zip'
 
 
-sonar_version: 6.2
+sonar_version: 6.7
 sonar_name: "sonarqube-{{ sonar_version }}"
 sonar_file: "{{ sonar_name }}.zip"
 sonar_url: 'https://binaries.sonarsource.com/Distribution/sonarqube/{{ sonar_file }}'
-sonar_home: /opt/sonar
+sonar_home: /opt
 sonar_web_javaopts: False
 sonar_web_javaadditionalopts: False
 sonar_path_data: data
